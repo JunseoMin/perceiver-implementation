@@ -2,7 +2,7 @@ import torch.nn as nn
 from modules import ScaledDotProductAttention
 
 class MultiheadAttention(nn.Module):
-    def __init__(self,n_head , d_model, h, dropout):
+    def __init__(self,n_head , d_model, h, dropout , mask = False):
         super().__init__()
         self.n_head = n_head
         self.d_model = d_model
@@ -44,3 +44,22 @@ class MultiheadAttention(nn.Module):
         q = self.dropout(q)
 
         return q
+    
+class PositionWiseFeedFoward(nn.Module):
+    def __init__(self,d_in, d_hidden, dropout = 0.1):
+        super().__init__()
+        self.w1 = nn.Linear(d_in,d_hidden, bias=True)
+        self.w2 = nn.Linear(d_hidden,d_in, bias=True)
+
+        self.layer_norm = nn.LayerNorm()
+        self.dropout = nn.Dropout(dropout)
+
+    def foward(self, x):
+        residual = x
+        x = self.w2(nn.functional.relu(self.w1(x)))
+        x = self.dropout(x)
+        x += residual
+
+        self.layer_norm(x)
+        
+        return x
