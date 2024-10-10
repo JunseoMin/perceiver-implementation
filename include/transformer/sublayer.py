@@ -61,5 +61,5 @@ class PositionWiseFeedFoward(nn.Module):
         x += residual
 
         self.layer_norm(x)
-        
+
         return x
