@@ -2,13 +2,13 @@ import torch.nn as nn
 from modules import ScaledDotProductAttention
 
 class MultiheadAttention(nn.Module):
-    def __init__(self,n_head , d_model, h, dropout , mask = False):
+    def __init__(self,n_head , d_model, d_k, d_v, dropout , mask = False):
         super().__init__()
         self.n_head = n_head
         self.d_model = d_model
 
-        self.d_k = d_model/h
-        self.d_v = d_model/h
+        self.d_k = d_k
+        self.d_v = d_v
 
         self.w_q = nn.Linear(self.d_model, n_head * self.d_k, bias=False)
         self.w_k = nn.Linear(self.d_model, n_head * self.d_k, bias=False)
