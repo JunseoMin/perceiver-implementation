@@ -15,7 +15,7 @@ class Decoder(nn.Module):
         self.scale_emb = scale_emb
         self.d_model = d_model
 
-    def foward(self,trg_seq, trg_mask, enc_output, src_mask):
+    def forward(self,trg_seq, trg_mask, enc_output, src_mask):
         dec_output = self.trg_emb(trg_seq)
         if self.scale_emb:
             dec_output *= self.d_model ** 0.5

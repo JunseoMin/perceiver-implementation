@@ -20,7 +20,7 @@ class Encoder(nn.Module):
         self.scale_embedding = scale_embedding
         self.d_model = d_model
 
-    def foward(self, src_seq, src_mask):
+    def forward(self, src_seq, src_mask):
         
         enc_output = self.src_embed(src_seq)
         if self.scale_embedding:

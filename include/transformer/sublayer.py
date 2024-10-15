@@ -21,8 +21,8 @@ class MultiheadAttention(nn.Module):
         self.dropout = nn.Dropout(dropout)
         pass
 
-    def foward(self,q,k,v):
-        ''' update weights (foward) '''
+    def forward(self,q,k,v):
+        ''' update weights (forward) '''
         d_k, d_v, n_head = self.d_k, self.d_v, self.n_head
         s_batch, q_channel, k_channel, v_channel = q.size(0), q.size(1), k.size(1), v.size(1)
 
@@ -45,7 +45,7 @@ class MultiheadAttention(nn.Module):
 
         return q
     
-class PositionWiseFeedFoward(nn.Module):
+class PositionWiseFeedforward(nn.Module):
     def __init__(self,d_in, d_hidden, dropout = 0.1):
         super().__init__()
         self.w1 = nn.Linear(d_in,d_hidden, bias=True)
@@ -54,7 +54,7 @@ class PositionWiseFeedFoward(nn.Module):
         self.layer_norm = nn.LayerNorm()
         self.dropout = nn.Dropout(dropout)
 
-    def foward(self, x):
+    def forward(self, x):
         residual = x
         x = self.w2(nn.functional.relu(self.w1(x)))
         x = self.dropout(x)

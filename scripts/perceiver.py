@@ -8,5 +8,5 @@ class Perceiver(nn.Module):
     def __init__(self):
         super().__init__()
     
-    def foward(self):
+    def forward(self):
         pass

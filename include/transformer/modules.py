@@ -9,7 +9,7 @@ class ScaledDotProductAttention(nn.Module):
         self.temperature = temperature
         self.dropout = dropout
 
-    def foward(self,q,k,v, mask = None):
+    def forward(self,q,k,v, mask = None):
         att = torch.matmul(q/self.temperature, k.transpose(2,3))
 
         if mask != None:
@@ -36,5 +36,5 @@ class PositionalEncoding(nn.Module):
 
         return torch.FloatTensor(sinusoid_table).unsqueeze(0)
 
-    def foward(self,x):
+    def forward(self,x):
         return x + self.input_buffer[:, :x.size(1)].clone().detach()

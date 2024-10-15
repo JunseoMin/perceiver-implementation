@@ -42,7 +42,7 @@ class Transformer(nn.Module):
             self.encoder.src_embed.weight = self.decoder.trg_emb.weight
 
 
-    def foward(self,src_seq, trg_seq):
+    def forward(self,src_seq, trg_seq):
         src_mask = get_pad_mask(src_mask, self.src_pad_idx)
         trg_mask = get_pad_mask(trg_mask, self.trg_pad_idx) & get_subsequent_mask(trg_seq)
 
