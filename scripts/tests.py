@@ -68,7 +68,7 @@ def test_perceiever():
     share_weights = True
     depth = 6
     n_classes = 10
-    in_axis = [32, 32]
+    in_axis = 2
     max_freq = 10
     n_head = 4
     d_head = 64
@@ -88,9 +88,10 @@ def test_perceiever():
 
     
     batch_size = 8
-    input_data = torch.randn(batch_size, *in_axis, d_byte_arr)
 
-    
+    input_data = torch.randn(batch_size, *[32,32], d_byte_arr)
+    print("INPUT shape:", input_data.shape)  # (batch_size, n_classes)
+
     output = model(input_data)
 
     

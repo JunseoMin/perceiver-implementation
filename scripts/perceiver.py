@@ -46,8 +46,8 @@ class Perceiver(nn.Module):
 
     def forward(self, array, logits = True):
         #positional encoding
-        b = array.shape[0]
-        axis_pos = list(map(lambda size: torch.linspace(-1., 1., steps=size, device=self.device, dtype=self.dtype), self.in_axis))
+        b, *axis, _ = array.shape
+        axis_pos = list(map(lambda size: torch.linspace(-1., 1., steps=size, device=self.device, dtype=self.dtype), axis))
         pos = torch.stack(torch.meshgrid(*axis_pos, indexing = 'ij'), dim = -1)
 
         pos = self.encoder(pos)
