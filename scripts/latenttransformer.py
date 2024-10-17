@@ -1,11 +1,6 @@
 import torch
 import torch.nn as nn
 
-from modules import PAttention
-
-import os,sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from layers import Attention
 
 '''
@@ -23,6 +18,6 @@ class LatentTransformer(nn.Module): ## do self attention
         self.dropout = nn.Dropout(p=dropout)
 
     def forward(self,x):
-        x = self.atten(x)
+        x = self.atten(x,x,x)
         x = self.dropout(x)
         return x
