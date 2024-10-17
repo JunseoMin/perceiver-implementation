@@ -44,7 +44,6 @@ class Attention(nn.Module):
         self.w_o = nn.Linear(n_head * d_v, d_latent, bias=False)    # attention output: latent vector
 
         self.dropout = nn.Dropout(p=dropout)
-        self.layernorm = nn.LayerNorm(d_latent, eps = 1e-6)
 
         self.attention = PAttention(temperature=temp, dropout = dropout)
 
@@ -90,9 +89,9 @@ class FourierFeaturePositionEncoding(nn.Module):
         self.input_dim, self.input_type, self.device = input_dim, input_type, device
         
     def forward(self,x):
-        org_x = x
         x = x.unsqueeze(-1)
-
+        org_x = x
+        
         scales = torch.linspace(1.,self.max_freq // 2, self.num_bands, device=self.device, dtype=self.input_type)
         scales = scales[(*((None,) * (len(x.shape) - 1)), Ellipsis)]    # [(None * (shape -1) ... )]
 

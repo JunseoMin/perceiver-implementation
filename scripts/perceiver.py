@@ -28,8 +28,8 @@ class Perceiver(nn.Module):
         self.in_axis = in_axis
 
         if share_weights:
-            self.layers = nn.ModuleList([PerceiverLayer(n_head, d_head, d_byte_arr, d_latent,
-                                                         d_kv, atten_dropout, ff_dropout)])
+            self.layers = PerceiverLayer(n_head, d_head, d_byte_arr, d_latent,
+                                         d_kv, atten_dropout, ff_dropout)
         else:
             self.layers = nn.ModuleList([PerceiverLayer(n_head, d_head, d_byte_arr, d_latent,
                                                          d_kv, atten_dropout, ff_dropout)] for _ in range(depth))
@@ -60,7 +60,7 @@ class Perceiver(nn.Module):
         latent = repeat(self.latent, 'n d -> b n d', b = b)
 
         if self.share_weights:
-            for _ in self.depth:
+            for _ in range(self.depth):
                 latent = self.layers(latent,array)
         else:
             for layer in self.layers:
