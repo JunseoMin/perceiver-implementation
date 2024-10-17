@@ -50,7 +50,7 @@ class PositionWiseFeedforward(nn.Module):
         self.w1 = nn.Linear(d_in,d_hidden, bias=True)
         self.w2 = nn.Linear(d_hidden,d_in, bias=True)
 
-        self.layer_norm = nn.LayerNorm()
+        self.layer_norm = nn.LayerNorm(d_in,eps=1e-6)
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x):

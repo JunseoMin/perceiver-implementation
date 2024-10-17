@@ -8,6 +8,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from include.transformer.modules import ScaledDotProductAttention
 import modules as pm
 
+from layers import PerceiverLayer
 
 def test_cross_attention():
     # Parameters for the CrossAttention module
@@ -38,8 +39,31 @@ def test_cross_attention():
     print("Output:", output)
 
 
-if __name__ == '__main__':
-    # Test the CrossAttention forward method
+def test_layers():
+    max_freq = 10
+    n_head = 4
+    d_head = 64
+    d_byte_arr = 1024
+    d_latent = 256
+    d_kv = 64
+    input_type = 'image'  
+    device = 'cpu'  
+    num_bands = 4
+    dropout = 0.1
 
+    model = PerceiverLayer(max_freq, n_head, d_head, d_byte_arr, d_latent, d_kv, input_type, device, num_bands, dropout)
+
+    latent = torch.randn(8, 10, d_latent)  # (batch_size, num_latents, d_latent)
+    byte_arr = torch.randn(8, 50, d_byte_arr)  # (batch_size, num_bytes, d_byte_arr)
+
+    output = model(latent, byte_arr)
+
+    print("Output shape:", output.shape)
+
+    assert output.shape == latent.shape, "Output shape mismatch"
+    print("Test passed!")
+
+
+if __name__ == '__main__':
     # Run the test
-    test_cross_attention()
+    test_layers()
