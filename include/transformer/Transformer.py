@@ -19,7 +19,6 @@ class Transformer(nn.Module):
         super().__init__()
 
         self.src_pad_idx, self.trg_pad_idx = src_pad_idx, trg_pad_idx
-        self.d_model = d_model
 
         scale_emb = True
         self.scale_proj = True

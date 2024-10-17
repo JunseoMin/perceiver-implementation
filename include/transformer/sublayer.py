@@ -19,7 +19,6 @@ class MultiheadAttention(nn.Module):
         self.atten = ScaledDotProductAttention()
         self.layer_norm = nn.LayerNorm(d_model, eps=1e-6)
         self.dropout = nn.Dropout(dropout)
-        pass
 
     def forward(self,q,k,v):
         ''' update weights (forward) '''
@@ -46,7 +45,7 @@ class MultiheadAttention(nn.Module):
         return q
     
 class PositionWiseFeedforward(nn.Module):
-    def __init__(self,d_in, d_hidden, dropout = 0.1):
+    def __init__(self,d_in, d_hidden = 4, dropout = 0.1):
         super().__init__()
         self.w1 = nn.Linear(d_in,d_hidden, bias=True)
         self.w2 = nn.Linear(d_hidden,d_in, bias=True)
