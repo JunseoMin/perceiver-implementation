@@ -10,7 +10,10 @@ paper: deep stack of Transformer-style self-attention blocks in the latent
 space.
 '''
 
-class LatentTransformer(nn.Module): ## do self attention
+class LatentTransformer(nn.Module): ## do self 
+    '''
+    attention without normalization
+    '''
     def __init__(self,n_head, d_head ,d_kv, d_latent, dropout = 0.1):
         super().__init__()
         self.n_head = n_head
