@@ -92,7 +92,7 @@ class FourierFeaturePositionEncoding(nn.Module):
         x = x.unsqueeze(-1)
         org_x = x
         
-        scales = torch.linspace(1.,self.max_freq // 2, self.num_bands, device=self.device, dtype=self.input_type)
+        scales = torch.linspace(1.,self.max_freq // 2, self.num_bands, device=self.device, dtype=x.dtype)
         scales = scales[(*((None,) * (len(x.shape) - 1)), Ellipsis)]    # [(None * (shape -1) ... )]
 
         x = x * scales * torch.pi
