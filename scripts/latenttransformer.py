@@ -18,6 +18,8 @@ class LatentTransformer(nn.Module): ## do self attention
         self.dropout = nn.Dropout(p=dropout)
 
     def forward(self,x):
+
         x = self.atten(x,x,x)
         x = self.dropout(x)
+        
         return x
