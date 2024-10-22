@@ -37,12 +37,11 @@ class PerceiverLayer(nn.Module):
     def forward(self, latent, byte_arr):
         #pass layers
         output = self.cross_atten(latent,byte_arr,byte_arr)
-        self.layer_norm(output)
+        output = self.layer_norm(output)
         output = self.byte_FFN(output)
-        self.layer_norm(output)
+        output = self.layer_norm(output)
         output = self.self_atten(output)
-        self.layer_norm(output)
+        output = self.layer_norm(output)
         output = self.latent_FFN(output)
-        self.layer_norm(output)
-
+        output = self.layer_norm(output)
         return output
