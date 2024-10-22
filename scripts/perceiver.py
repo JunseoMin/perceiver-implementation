@@ -12,7 +12,7 @@ Implementation of model
 
 class Perceiver(nn.Module):
     def __init__(self, share_weights, depth, n_classes, in_axis, in_channel,
-                 max_freq, n_head, d_head, d_byte_arr, d_latent, n_latent,
+                 max_freq, n_cross_head, n_latent_head, d_cross_head, d_latent_head, d_byte_arr, d_latent, n_latent,
                  d_kv, input_type, device, n_bands, atten_dropout, ff_dropout,
                  final_classifier =True):
         super().__init__()
@@ -26,9 +26,9 @@ class Perceiver(nn.Module):
         input_dim = fourier_channels + in_channel
 
         if share_weights:
-            self.layers = PerceiverLayer(n_head, d_head, input_dim, d_latent, d_kv, atten_dropout, ff_dropout)
+            self.layers = PerceiverLayer(n_cross_head, n_latent_head, d_cross_head, d_latent_head, input_dim, d_latent, d_kv, atten_dropout, ff_dropout)
         else:
-            self.layers = nn.ModuleList([PerceiverLayer(n_head, d_head, input_dim, d_latent, d_kv, atten_dropout, ff_dropout) for _ in range(depth)])
+            self.layers = nn.ModuleList([PerceiverLayer(n_cross_head, n_latent_head, d_cross_head, d_latent_head, input_dim, d_latent, d_kv, atten_dropout, ff_dropout) for _ in range(depth)])
 
         self.latent = nn.Parameter(torch.randn(n_latent, d_latent))
         self.encoder = FourierFeaturePositionEncoding(max_freq,d_byte_arr,input_type, device, n_bands)
