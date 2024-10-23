@@ -1,0 +1,32 @@
+name: perceiver_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ca-certificates=2024.8.30=hbcca054_0
+  - libffi=3.4.4=h6a678d5_1
+  - libgcc-ng=11.2.0=h1234567_1
+  - libgomp=11.2.0=h1234567_1
+  - libstdcxx-ng=11.2.0=h1234567_1
+  - openssl=3.0.15=h5eee18b_0
+  - python=3.10.15=he870216_1
+  - pip=24.2=py310h06a4308_0
+  - setuptools=75.1.0=py310h06a4308_0
+  - wheel=0.44.0=py310h06a4308_0
+  - xz=5.4.6=h5eee18b_1
+  - zlib=1.2.13=h5eee18b_1
+  - pip:
+    - einops==0.8.0
+    - filelock==3.16.1
+    - fsspec==2024.9.0
+    - numpy==2.1.2
+    - pillow==11.0.0
+    - protobuf==5.28.2
+    - scipy==1.14.1
+    - torch==2.5.0
+    - torchvision==0.20.0
+    - nvidia-cublas-cu12==12.4.5.8
+    - nvidia-cuda-runtime-cu12==12.4.127
+    - nvidia-cudnn-cu12==9.1.0.70
+    - nvidia-nccl-cu12==2.21.5
+    - tensorboardx==2.6.2.2
