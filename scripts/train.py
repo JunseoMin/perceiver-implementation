@@ -59,6 +59,7 @@ share_weights = True
 depth = 6
 n_classes = 1000
 in_axis = 2
+in_channel = 2
 max_freq = 10
     
 n_cross_head = 1
@@ -66,7 +67,7 @@ n_latent_head = 8
 d_cross_head = 64
 d_latent_head = 64
 
-d_byte_arr = 2048
+d_byte_arr = 256*256
 
 d_latent = 512
 n_latent = 512
@@ -83,8 +84,23 @@ epochs = 120
 initial_learning_rate = 0.004
 
 # Model Initialization
-model = Perceiver(share_weights, depth, n_classes, in_axis, 3, max_freq, n_cross_head,n_latent_head, d_cross_head,d_latent_head , d_byte_arr, d_latent,
-                  n_latent, d_kv, input_type, device, n_bands, atten_dropout, ff_dropout).to(device)
+model = Perceiver(share_weights = True, depth = 6,
+                    n_classes = 1000,
+                    in_axis = 2,
+                    in_channel=3,
+                    max_freq = 10, 
+                    n_cross_head = 1,
+                    n_latent_head = 8,
+                    d_cross_head = 64,
+                    d_latent_head = 64,
+                    d_byte_arr = 256*256,   # for fourier encoding
+                    d_latent = 512,
+                    n_latent = 1024,
+                    d_kv = 64,
+                    input_type = torch.float32,
+                    device = device,
+                    n_bands = 64,
+                    atten_dropout = 0., ff_dropout = 0.).to(device)
 
 # Optimizer and Scheduler
 optimizer = Lamb(model.parameters(), lr=initial_learning_rate, weight_decay=0.01)
@@ -105,11 +121,23 @@ val_dataset = torchvision.datasets.ImageNet(root='path_to_imagenet', split='val'
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True, num_workers=4)
 val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False, num_workers=4)
 
+best_val_acc = 0.0
+
 # Training loop
 for epoch in range(1, epochs + 1):
     print(f'Epoch {epoch}/{epochs}')
     train_model(model, train_loader, criterion, optimizer, device)
-    validate_model(model, val_loader, criterion, device)
+    val_loss, val_acc = validate_model(model, val_loader, criterion, device)
     
     # Step the learning rate scheduler
     scheduler.step()
+
+    # Save best model based on validation accuracy
+    if val_acc > best_val_acc:
+        best_val_acc = val_acc
+        torch.save(model.state_dict(), "best_perceiver_weights.pth")
+        print(f"Best model saved at epoch {epoch}, Accuracy: {val_acc:.2f}%")
+
+# Save the final trained weights
+torch.save(model.state_dict(), "final_perceiver_weights.pth")
+print("Final model weights saved.")
