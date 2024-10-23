@@ -67,7 +67,7 @@ n_latent_head = 8
 d_cross_head = 64
 d_latent_head = 64
 
-d_byte_arr = 256*256
+d_byte_arr = 224*224
 
 d_latent = 512
 n_latent = 512
@@ -93,7 +93,7 @@ model = Perceiver(share_weights = True, depth = 6,
                     n_latent_head = 8,
                     d_cross_head = 64,
                     d_latent_head = 64,
-                    d_byte_arr = 256*256,   # for fourier encoding
+                    d_byte_arr = 224*224,   # for fourier encoding
                     d_latent = 512,
                     n_latent = 1024,
                     d_kv = 64,
