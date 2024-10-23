@@ -35,7 +35,7 @@ class Attention(nn.Module):
     def __init__(self, n_head, d_byte_arr, d_latent, d_k, d_v, temp, dropout = 0.1):
         super().__init__()
         self.n_head , self.d_byte_arr, self.d_k, self.d_v, self.d_latent = n_head, d_byte_arr, d_k, d_v, d_latent
-        # dk == d_v => byte array dim
+        # dk == d_v => dim heads
         
         self.w_q = nn.Linear(d_latent, n_head * d_k, bias=False)
         self.w_k = nn.Linear(d_byte_arr, n_head * d_k, bias=False)

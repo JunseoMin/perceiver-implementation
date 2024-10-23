@@ -59,24 +59,31 @@ share_weights = True
 depth = 6
 n_classes = 1000
 in_axis = 2
-in_channel = 3
 max_freq = 10
-n_head = 64
-d_head = 64
+    
+n_cross_head = 1
+n_latent_head = 8
+d_cross_head = 64
+d_latent_head = 64
+
 d_byte_arr = 2048
+
 d_latent = 512
-n_latent = 1024
-d_kv = 64
+n_latent = 512
+    
+d_kv = 64 # input dim
+
 input_type = torch.float32
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
-n_bands = 64
+device = 'cpu'  
+n_bands = 4
 atten_dropout = 0.1
 ff_dropout = 0.1
+
 epochs = 120
 initial_learning_rate = 0.004
 
 # Model Initialization
-model = Perceiver(share_weights, depth, n_classes, in_axis, in_channel, max_freq, n_head, d_head, d_byte_arr, d_latent,
+model = Perceiver(share_weights, depth, n_classes, in_axis, 3, max_freq, n_cross_head,n_latent_head, d_cross_head,d_latent_head , d_byte_arr, d_latent,
                   n_latent, d_kv, input_type, device, n_bands, atten_dropout, ff_dropout).to(device)
 
 # Optimizer and Scheduler

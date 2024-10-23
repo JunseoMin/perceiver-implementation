@@ -27,8 +27,8 @@ class PerceiverLayer(nn.Module):
                   atten_dropout = 0.1,ff_dropout = 0.1):
         
         super().__init__()
-        self.cross_atten = Attention(n_cross_head, d_byte_arr, d_latent, d_kv, d_kv, temp=d_cross_head ** -0.5, dropout=atten_dropout)
-        self.self_atten = LatentTransformer(n_latent_head, d_latent_head, d_kv, d_latent, atten_dropout)
+        self.cross_atten = Attention(n_cross_head, d_byte_arr, d_latent, d_cross_head, d_cross_head, temp=d_cross_head ** -0.5, dropout=atten_dropout)
+        self.self_atten = LatentTransformer(n_latent_head, d_latent_head, d_latent_head, d_latent, atten_dropout)
         self.byte_FFN = PositionWiseFeedforward(d_latent,dropout=ff_dropout)
         self.latent_FFN = PositionWiseFeedforward(d_latent,dropout=ff_dropout)
         self.layer_norm = nn.LayerNorm(d_latent, eps=1e-6)
