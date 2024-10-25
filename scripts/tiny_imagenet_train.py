@@ -96,7 +96,7 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
-data_dir = 'path to your tinyimagenet dir'
+data_dir = '/home/junseo/Downloads/tiny-imagenet-200'
 
 # ImageNet Dataset and DataLoader
 train_dataset = torchvision.datasets.ImageFolder(root=os.path.join(data_dir, 'train'), transform=transform)

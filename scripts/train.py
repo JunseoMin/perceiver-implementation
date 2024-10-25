@@ -55,30 +55,7 @@ def validate_model(model, val_loader, criterion, device):
     return val_loss, accuracy
 
 # Parameters
-share_weights = True
-depth = 6
-n_classes = 1000
-in_axis = 2
-in_channel = 2
-max_freq = 10
-    
-n_cross_head = 1
-n_latent_head = 8
-d_cross_head = 64
-d_latent_head = 64
-
-d_byte_arr = 224*224
-
-d_latent = 512
-n_latent = 512
-    
-d_kv = 64 # input dim
-
-input_type = torch.float32
-device = 'cpu'  
-n_bands = 4
-atten_dropout = 0.1
-ff_dropout = 0.1
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 epochs = 120
 initial_learning_rate = 0.004
