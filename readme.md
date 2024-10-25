@@ -16,5 +16,5 @@ Todo...
 ## References
 - This code is partly based on [lucidrains' perceiver-pytorch implementation](https://github.com/lucidrains/perceiver-pytorch), with some shared code.
 - The **Lamb optimizer** in the `include/` directory is borrowed from the implementation by [cybertronai](https://github.com/cybertronai/pytorch-lamb).
-- The **Transformer** code in `include/transformer` is adapted from [attention-is-all-you-need-pytorch](https://github.com/jadore801120/attention-is-all-you-need-pytorch).
+- The **Transformer** code in `include/transformer` is based on [attention-is-all-you-need-pytorch](https://github.com/jadore801120/attention-is-all-you-need-pytorch).
 
